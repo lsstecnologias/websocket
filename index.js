@@ -33,7 +33,7 @@ const io = Server(server,{
     origin:'*',
     cors:{
         origin:["*", "http://127.0.0.1:5501","http://127.0.0.1:5500"],
-        methods: ["GET", "POST"],
+       
        
     }
 });
