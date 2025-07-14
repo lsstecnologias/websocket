@@ -49,5 +49,6 @@ io.on('connection', function(socket){
         socket.emit('msgParaCliente',{nome:'Leonardo 2'})
      });
 
+     socket.close()
 
 });
