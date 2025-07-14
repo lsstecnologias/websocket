@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.use(cors(corsOptions));
-var server  = app.listen(7000,()=>{
+var server  = app.listen(80,()=>{
     console.log("Server ON");
 })
 
