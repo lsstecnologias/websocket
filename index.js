@@ -13,7 +13,7 @@ wss.on('connection', function connection(ws) {
 
         console.log('Received: %s', message);
 
-        ws.send(`${message}`);
+       // ws.send(`${message}`);
     });
 
 
