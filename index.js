@@ -29,9 +29,9 @@ var server  = app.listen(7000,()=>{
 })
 
 const io = Server(server,{
-    mode:'no-cors',
+   
     cors:{
-        origin:"*",
+        origin:["*", "http://localhost:5500"],
         credential: true
     }
 });
