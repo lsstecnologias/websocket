@@ -1,54 +1,23 @@
-var express = require('express');
-var cors = require('cors');
-var Server = require("socket.io");
-var bodyParser = require('body-parser');
-var app = express();
-
-const corsOptions = {
-    origin: '*',
-    method: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    exposedHeaders: [
-
-        'Autorization',
-        'X-Requested-With',
-        'Content-Type',
-        'Cache-Control:no-cache',
-        'Access-Control-Allow-Origin:*'
-    ],
-    preflightContinue: true,
-
-};
+const WebSocket = require('ws');
 
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+const wss = new WebSocket.Server({ port: 8080 });
 
-app.use(cors(corsOptions));
-var server  = app.listen(80,()=>{
-    console.log("Server ON");
-})
 
-const io = Server(server,{
-    mode:'no-cors',
-    origin:'*',
-    cors:{
-        origin:["*", "http://127.0.0.1:5501","http://127.0.0.1:5500"],
-       
-       
-    }
-});
-app.set('io', io);
-io.on('connection', function(socket){
-	console.log('Usuário conectou');
-    socket.on('disconnect', function(){
-		console.log('Usuário desconectou');
-	});
+wss.on('connection', function connection(ws) {
 
-    socket.on('msgParaServidor', (data)=>{
-        console.log(data)
-        socket.emit('msgParaCliente',{nome:'Leonardo 2'})
-     });
+    console.log('Client connected');
 
-    
 
+    ws.on('message', function incoming(message) {
+
+        console.log('Received: %s', message);
+
+        ws.send(`${message}`);
+    });
+
+
+    ws.on('close', function () {
+        console.log('Client disconnected');
+    });
 });
