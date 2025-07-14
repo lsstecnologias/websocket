@@ -1,8 +1,29 @@
 var express = require('express');
+var cors = require('cors');
 var Server = require("socket.io");
 var bodyParser = require('body-parser');
 var app = express();
 
+const corsOptions = {
+    origin: '*',
+    method: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    exposedHeaders: [
+
+        'Autorization',
+        'X-Requested-With',
+        'Content-Type',
+        'Cache-Control:no-cache',
+        'Access-Control-Allow-Origin:*'
+    ],
+    preflightContinue: true,
+
+};
+
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+app.use(cors(corsOptions));
 var server  = app.listen(7000,()=>{
     console.log("Server ON");
 })
@@ -27,4 +48,4 @@ io.on('connection', function(socket){
      });
 
 
-})
+});
